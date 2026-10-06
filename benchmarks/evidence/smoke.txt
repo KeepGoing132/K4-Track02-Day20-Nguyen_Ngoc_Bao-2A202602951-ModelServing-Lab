@@ -1,0 +1,28 @@
+Started UTC: 2026-10-06T11:53:58.916629+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/02-serve/smoke-test.py
+Environment: {"LAB_LOAD_LONG_TOKENS": "96", "LAB_LOAD_SHORT_TOKENS": "48", "LAB_MAX_TOKENS": "64", "LAB_N_CTX": "2048", "LAB_N_GPU_LAYERS": "0", "LAB_N_THREADS": "14", "LAB_PARALLEL": "4", "LAB_REASONING": "off", "LAB_TEMPERATURE": "0.7"}
+
+
+────────────────────────────────────────────────────────────────
+  Smoke test against http://localhost:8080
+────────────────────────────────────────────────────────────────
+  /metrics before : tokens_predicted_total = 0
+
+==> POST http://localhost:8080/v1/chat/completions
+
+Goodput@SLO measures the amount of work completed within a specified Service Level Objective.
+
+  server timings: prompt 35 tok in 726 ms  ->  48.2 tok/s prefill
+                  decode 19 tok in 826 ms  ->  21.8 tok/s
+
+==> GET http://localhost:8080/metrics   (rubric item 7 -- screenshot this)
+   llamacpp:tokens_predicted_total                   19.00   (+19)
+   llamacpp:prompt_tokens_total                      35.00   (+35)
+   llamacpp:n_decode_total                           21.00   (+21)
+   llamacpp:requests_processing                       0.00
+   llamacpp:n_busy_slots_per_decode                   1.00   (+1)
+
+OK -- served a completion and tokens_predicted_total is 19 (non-zero).
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:54:07.698491+00:00

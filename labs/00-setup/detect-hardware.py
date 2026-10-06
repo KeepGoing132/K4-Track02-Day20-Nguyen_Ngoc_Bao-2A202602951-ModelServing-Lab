@@ -234,7 +234,10 @@ def main() -> int:
             asset = "?"
         print(f"  llama.cpp     : prebuilt release {labkit.LLAMA_CPP_BUILD}  ({asset})")
         live, why = labkit.gpu_offload_is_live()
-        print(f"  GPU offload   : {'ACTIVE -- ' + why if live else 'OFF -- ' + why}")
+        enabled = live and labkit.n_gpu_layers() > 0
+        status = "ACTIVE -- " + why if enabled else (
+            "OFF -- LAB_N_GPU_LAYERS=0; device available: " + why if live else "OFF -- " + why)
+        print(f"  GPU offload   : {status}")
         if not live and rec["llama_cpp_backend"] != "CPU":
             print(f"                  base track is unaffected (100 pts need no GPU).")
             print(f"                  to use the {rec['llama_cpp_backend']} you have, build from source:")

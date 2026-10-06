@@ -1,0 +1,39 @@
+{
+  "metric": "tg128",
+  "cores": {
+    "physical": 14,
+    "logical": 20
+  },
+  "rows": [
+    {
+      "threads": 1,
+      "tok_s": 2.7,
+      "raw_output": "| model                          |       size |     params | backend    | ngl | threads |            test |                  t/s |\r\n| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | --------------: | -------------------: |\r\n| gemma4 E2B Q4_K - Medium       |   2.95 GiB |     4.65 B | CUDA       |   0 |       1 |           tg128 |          2.70 \u00b1 0.00 |\r\n\r\nbuild: 9d77fa172 (10488)\r\nggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):\r\n  Device 0: NVIDIA GeForce RTX 3050 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB\r\nload_backend: loaded CUDA backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cuda.dll\r\nload_backend: loaded RPC backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-rpc.dll\r\nload_backend: loaded CPU backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cpu-alderlake.dll\r\n"
+    },
+    {
+      "threads": 7,
+      "tok_s": 23.91,
+      "raw_output": "| model                          |       size |     params | backend    | ngl | threads |            test |                  t/s |\r\n| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | --------------: | -------------------: |\r\n| gemma4 E2B Q4_K - Medium       |   2.95 GiB |     4.65 B | CUDA       |   0 |       7 |           tg128 |         23.91 \u00b1 0.45 |\r\n\r\nbuild: 9d77fa172 (10488)\r\nggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):\r\n  Device 0: NVIDIA GeForce RTX 3050 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB\r\nload_backend: loaded CUDA backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cuda.dll\r\nload_backend: loaded RPC backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-rpc.dll\r\nload_backend: loaded CPU backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cpu-alderlake.dll\r\n"
+    },
+    {
+      "threads": 14,
+      "tok_s": 25.85,
+      "raw_output": "| model                          |       size |     params | backend    | ngl |            test |                  t/s |\r\n| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |\r\n| gemma4 E2B Q4_K - Medium       |   2.95 GiB |     4.65 B | CUDA       |   0 |           tg128 |         25.85 \u00b1 0.19 |\r\n\r\nbuild: 9d77fa172 (10488)\r\nggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):\r\n  Device 0: NVIDIA GeForce RTX 3050 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB\r\nload_backend: loaded CUDA backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cuda.dll\r\nload_backend: loaded RPC backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-rpc.dll\r\nload_backend: loaded CPU backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cpu-alderlake.dll\r\n"
+    },
+    {
+      "threads": 20,
+      "tok_s": 20.9,
+      "raw_output": "| model                          |       size |     params | backend    | ngl | threads |            test |                  t/s |\r\n| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | --------------: | -------------------: |\r\n| gemma4 E2B Q4_K - Medium       |   2.95 GiB |     4.65 B | CUDA       |   0 |      20 |           tg128 |         20.90 \u00b1 0.07 |\r\n\r\nbuild: 9d77fa172 (10488)\r\nggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):\r\n  Device 0: NVIDIA GeForce RTX 3050 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB\r\nload_backend: loaded CUDA backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cuda.dll\r\nload_backend: loaded RPC backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-rpc.dll\r\nload_backend: loaded CPU backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cpu-alderlake.dll\r\n"
+    },
+    {
+      "threads": 40,
+      "tok_s": 11.81,
+      "raw_output": "| model                          |       size |     params | backend    | ngl | threads |            test |                  t/s |\r\n| ------------------------------ | ---------: | ---------: | ---------- | --: | ------: | --------------: | -------------------: |\r\n| gemma4 E2B Q4_K - Medium       |   2.95 GiB |     4.65 B | CUDA       |   0 |      40 |           tg128 |         11.81 \u00b1 0.08 |\r\n\r\nbuild: 9d77fa172 (10488)\r\nggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):\r\n  Device 0: NVIDIA GeForce RTX 3050 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB\r\nload_backend: loaded CUDA backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cuda.dll\r\nload_backend: loaded RPC backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-rpc.dll\r\nload_backend: loaded CPU backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cpu-alderlake.dll\r\n"
+    }
+  ],
+  "best": {
+    "threads": 14,
+    "tok_s": 25.85,
+    "raw_output": "| model                          |       size |     params | backend    | ngl |            test |                  t/s |\r\n| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |\r\n| gemma4 E2B Q4_K - Medium       |   2.95 GiB |     4.65 B | CUDA       |   0 |           tg128 |         25.85 \u00b1 0.19 |\r\n\r\nbuild: 9d77fa172 (10488)\r\nggml_cuda_init: found 1 CUDA devices (Total VRAM: 4095 MiB):\r\n  Device 0: NVIDIA GeForce RTX 3050 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 4095 MiB\r\nload_backend: loaded CUDA backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cuda.dll\r\nload_backend: loaded RPC backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-rpc.dll\r\nload_backend: loaded CPU backend from E:\\D\\learn_AI\\LAB\\Track2\\K4-Track02-Day20-ModelServing-Lab\\runtime\\b10488\\ggml-cpu-alderlake.dll\r\n"
+  }
+}

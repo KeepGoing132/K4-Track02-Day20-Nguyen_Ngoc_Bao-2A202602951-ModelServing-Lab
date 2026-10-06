@@ -1,0 +1,238 @@
+{
+  "primary": {
+    "label": "primary",
+    "quant": "UD-Q4_K_XL",
+    "model_file": "gemma-4-E2B-it-UD-Q4_K_XL.gguf",
+    "n_requests": 10,
+    "load_ms": 5209.0,
+    "ttft_p50": 688.1,
+    "ttft_p95": 933.4,
+    "tpot_p50": 45.04,
+    "tpot_p95": 46.72,
+    "e2e_p50": 3549.7,
+    "e2e_p95": 3765.6,
+    "e2e_p99": 3765.6,
+    "decode_tok_s": 22.2,
+    "size_gb": 2.97,
+    "requests": [
+      {
+        "ttft_ms": 694.0193000482395,
+        "tpot_ms": 46.7249253960622,
+        "e2e_ms": 3637.689600000158,
+        "n_out": 64,
+        "prompt_n": 19,
+        "answer": "**TTFT (Time to First Target)** is a metric used to measure the latency from an event or request to the moment the first relevant data or target is received.\n\n**TPOT (Time to Process)** is a metric that quantifies the total time required for a system or process to complete its entire execution or",
+        "prompt": "Explain TTFT and TPOT in one sentence each.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 626.2075999984518,
+        "tpot_ms": 45.27895556141933,
+        "e2e_ms": 1441.2288001039997,
+        "n_out": 19,
+        "prompt_n": 17,
+        "answer": "Data spreads so thin,\nCache blocks left all alone,\nSlow access now waits.",
+        "prompt": "Write a haiku about KV cache fragmentation.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 707.8535999171436,
+        "tpot_ms": 46.24816825399027,
+        "e2e_ms": 3621.488199918531,
+        "n_out": 64,
+        "prompt_n": 20,
+        "answer": "## What is PagedAttention?\n\n**PagedAttention** is an innovative memory management technique designed to significantly improve the efficiency and scalability of **Attention mechanisms** in large language models (LLMs), particularly when dealing with **long sequences** or **large context windows**.\n\nIt is essentially an adaptation of the **paging technique",
+        "prompt": "What is PagedAttention and what problem does it solve?",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 933.363200048916,
+        "tpot_ms": 44.956569840747214,
+        "e2e_ms": 3765.6271000159904,
+        "n_out": 64,
+        "prompt_n": 22,
+        "answer": "Here are three reasons why **goodput@SLO matters more than peak throughput**:\n\n1. **Real-World User Experience and Value:** Peak throughput measures the theoretical maximum data rate the system *can* handle under ideal, often unrealistic, conditions. Goodput@SLO measures the *actual amount of useful,",
+        "prompt": "List three reasons goodput@SLO matters more than peak throughput.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 755.0127999857068,
+        "tpot_ms": 45.32275714224116,
+        "e2e_ms": 3610.3464999468997,
+        "n_out": 64,
+        "prompt_n": 23,
+        "answer": "Here are three bullet points comparing 4-bit and 2-bit quantization:\n\n* **Dynamic Range and Accuracy:** **4-bit quantization** offers a significantly larger dynamic range and higher precision, allowing for a finer representation of the original data and resulting in lower quantization error and better overall accuracy. **2-",
+        "prompt": "Compare 4-bit and 2-bit quantization in three bullets.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 679.6147999120876,
+        "tpot_ms": 44.73380793795167,
+        "e2e_ms": 3497.844700003043,
+        "n_out": 64,
+        "prompt_n": 19,
+        "answer": "FlashAttention achieves significantly less memory usage than naive attention primarily by **changing the way attention is computed and accessed in memory, specifically by leveraging tiling and block-wise operations to minimize the number of slow, high-bandwidth memory accesses.**\n\nHere is a detailed breakdown of why this is the case, contrasting it with naive attention",
+        "prompt": "Why does FlashAttention need less memory than naive attention?",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 688.0906999576837,
+        "tpot_ms": 45.04077142799303,
+        "e2e_ms": 3525.6592999212444,
+        "n_out": 64,
+        "prompt_n": 19,
+        "answer": "Continuous and static batching are two different strategies for processing data, particularly in areas like streaming data, machine learning inference, and data processing pipelines. The core difference lies in **how the data is grouped and processed over time.**\n\nHere is a detailed breakdown of each approach, followed by a comparison:\n\n---\n\n##",
+        "prompt": "What is the difference between continuous and static batching?",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 687.4580999137834,
+        "tpot_ms": 45.55987301726071,
+        "e2e_ms": 3557.7301000012085,
+        "n_out": 64,
+        "prompt_n": 15,
+        "answer": "## Sketch of the Steps of Speculative Decoding\n\nSpeculative decoding is an acceleration technique for large language models (LLMs) during **inference** (text generation). It works by using a smaller, faster, and less accurate **draft model** to quickly generate a sequence of tokens, which are then verified by the main",
+        "prompt": "Sketch the steps of speculative decoding.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 645.5036000115797,
+        "tpot_ms": 44.872891111299396,
+        "e2e_ms": 2664.7837000200525,
+        "n_out": 46,
+        "prompt_n": 15,
+        "answer": "Prefix caching is a technique used to store the results of common or frequently requested operations based on a shared prefix. This allows the system to quickly retrieve pre-computed answers for similar requests, significantly improving performance and reducing redundant computations.",
+        "prompt": "Explain prefix caching in two sentences.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 725.6342000328004,
+        "tpot_ms": 44.82710317316805,
+        "e2e_ms": 3549.7416999423876,
+        "n_out": 64,
+        "prompt_n": 20,
+        "answer": "Disaggregated prefill/decode serving is a powerful architectural pattern used in large language model (LLM) inference to improve efficiency, scalability, and resource utilization. It involves separating the computationally intensive **prefill** (prompt processing) and **decode** (token generation) stages onto different hardware or serving components.\n\nHere",
+        "prompt": "When should you use disaggregated prefill/decode serving?",
+        "token_count_source": "timings"
+      }
+    ]
+  },
+  "compare": {
+    "label": "compare",
+    "quant": "UD-Q2_K_XL",
+    "model_file": "gemma-4-E2B-it-UD-Q2_K_XL.gguf",
+    "n_requests": 10,
+    "load_ms": 4327.6,
+    "ttft_p50": 771.1,
+    "ttft_p95": 931.2,
+    "tpot_p50": 41.39,
+    "tpot_p95": 44.71,
+    "e2e_p50": 3374.2,
+    "e2e_p95": 3691.6,
+    "e2e_p99": 3691.6,
+    "decode_tok_s": 24.2,
+    "size_gb": 2.24,
+    "requests": [
+      {
+        "ttft_ms": 662.2145000146702,
+        "tpot_ms": 40.81231269926306,
+        "e2e_ms": 3233.390200068243,
+        "n_out": 64,
+        "prompt_n": 19,
+        "answer": "**TTFT (Time To Failure)** is a measure of the time it takes for a system or process to completely fail or cease functioning.\n\n**TPOT (Time To Production)** is a measure of the time it takes for a system or process to go from an initial state to a fully functional, productive state.",
+        "prompt": "Explain TTFT and TPOT in one sentence each.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 676.0556999361143,
+        "tpot_ms": 41.12441363659772,
+        "e2e_ms": 1580.792799941264,
+        "n_out": 23,
+        "prompt_n": 17,
+        "answer": "Memory fills with dust,\nFragments cling to swift currents,\nCache's bright, fractured gleam.",
+        "prompt": "Write a haiku about KV cache fragmentation.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 734.2634000815451,
+        "tpot_ms": 41.024036507772664,
+        "e2e_ms": 3318.777700071223,
+        "n_out": 64,
+        "prompt_n": 20,
+        "answer": "## PagedAttention: An Overview\n\n**PagedAttention** is a technique designed to solve a major bottleneck in the operation and scaling of large language models (LLMs), particularly when they are used for tasks requiring significant context or long sequences (like complex reasoning, long-form generation, or detailed QA).\n\nIn essence",
+        "prompt": "What is PagedAttention and what problem does it solve?",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 931.2102000694722,
+        "tpot_ms": 42.64595079243124,
+        "e2e_ms": 3617.9050999926403,
+        "n_out": 64,
+        "prompt_n": 22,
+        "answer": "Here are three reasons why **goodput@SLO (Service Level Objective)** matters more than peak throughput:\n\n1. **Focus on Quality over Quantity (Reliability and Predictability):** Goodput measures the *rate* or *volume* of successful transactions (or operations) within a specific timeframe. Focusing on",
+        "prompt": "List three reasons goodput@SLO matters more than peak throughput.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 874.8615001095459,
+        "tpot_ms": 44.7099571419318,
+        "e2e_ms": 3691.5888000512496,
+        "n_out": 64,
+        "prompt_n": 23,
+        "answer": "Here is a comparison of 4-bit and 2-bit quantization in three bullets:\n\n* **Precision and Accuracy:** **4-bit quantization** generally offers a significantly higher dynamic range and precision compared to **2-bit quantization**. This leads to better preservation of the original data's detail, resulting in",
+        "prompt": "Compare 4-bit and 2-bit quantization in three bullets.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 779.5978999929503,
+        "tpot_ms": 41.5520793647461,
+        "e2e_ms": 3397.3788999719545,
+        "n_out": 64,
+        "prompt_n": 19,
+        "answer": "FlashAttention needs less memory than naive attention primarily because of **how it handles the computation and memory access during the attention mechanism**, leading to significant memory savings compared to the standard, naive implementation.\n\nHere's a breakdown of the key reasons:\n\n---\n\n## 1. The Core Difference: Tensors and Memory",
+        "prompt": "Why does FlashAttention need less memory than naive attention?",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 779.3006000574678,
+        "tpot_ms": 41.84522063449202,
+        "e2e_ms": 3415.5495000304654,
+        "n_out": 64,
+        "prompt_n": 19,
+        "answer": "The difference between **continuous batching** and **static batching** lies primarily in **how the batching process is initiated, managed, and how the system handles the flow of data and resources.**\n\nHere's a detailed breakdown of each concept and the contrast between them:\n\n---\n\n## 1. Static",
+        "prompt": "What is the difference between continuous and static batching?",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 771.0920999525115,
+        "tpot_ms": 41.31913650780916,
+        "e2e_ms": 3374.1976999444887,
+        "n_out": 64,
+        "prompt_n": 15,
+        "answer": "## Sketch of Speculative Decoding\n\nSpeculative decoding is a technique used in **Large Language Models (LLMs)** to generate text faster by using a smaller, less complex model (the \"draft\" or \"speculative\" model) to generate a sequence of tokens, and then using the larger, more powerful model (",
+        "prompt": "Sketch the steps of speculative decoding.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 757.2186999022961,
+        "tpot_ms": 41.39470169518017,
+        "e2e_ms": 3199.506099917926,
+        "n_out": 60,
+        "prompt_n": 15,
+        "answer": "Prefix caching is a technique used in web development to store pre-computed results for frequently requested URLs or resources. Instead of recalculating the response every time, the system checks if a cached version is available, and if so, serves that stored result directly, significantly improving performance and reducing server load.",
+        "prompt": "Explain prefix caching in two sentences.",
+        "token_count_source": "timings"
+      },
+      {
+        "ttft_ms": 830.1080000819638,
+        "tpot_ms": 41.65668730136184,
+        "e2e_ms": 3454.47930006776,
+        "n_out": 64,
+        "prompt_n": 20,
+        "answer": "Disaggregated prefill/decode serving is a powerful technique that is most beneficial in scenarios where you need to optimize for **flexibility, resource utilization, and responsiveness** across different workloads.\n\nHere's a breakdown of when you should use disaggregated prefill/decode serving, categorized by the primary benefit you are trying",
+        "prompt": "When should you use disaggregated prefill/decode serving?",
+        "token_count_source": "timings"
+      }
+    ]
+  }
+}

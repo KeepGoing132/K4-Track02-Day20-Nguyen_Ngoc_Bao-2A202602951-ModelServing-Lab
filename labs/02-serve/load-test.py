@@ -12,8 +12,23 @@ from __future__ import annotations
 
 import os
 import random
+import json
+from datetime import datetime, timezone
+from pathlib import Path
 
-from locust import HttpUser, between, task
+from locust import HttpUser, between, task, events
+
+
+@events.request.add_listener
+def record_request(request_type, name, response_time, exception, **kwargs):
+    """Optional actual completed-request timings for independently checking SLOs."""
+    output = os.environ.get("LAB_REQUEST_LOG")
+    if not output:
+        return
+    with Path(output).open("a", encoding="utf-8") as log:
+        log.write(json.dumps({"completed_at_utc": datetime.now(timezone.utc).isoformat(),
+                              "name": name, "elapsed_ms": response_time,
+                              "success": exception is None}) + "\n")
 
 # Output length drives how long each request occupies a decode slot, which drives how
 # many requests a 60s run can finish. These defaults are sized so that even a

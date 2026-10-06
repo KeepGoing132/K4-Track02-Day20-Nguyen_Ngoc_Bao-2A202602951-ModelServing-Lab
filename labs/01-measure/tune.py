@@ -65,7 +65,7 @@ def main() -> int:
             ["-m", model, "-t", str(t), "-ngl", str(ngl), *bench_shape, "-r", str(args.reps)]
         )
         tps = labkit.bench_metric(out, args.metric)
-        rows.append({"threads": t, "tok_s": tps})
+        rows.append({"threads": t, "tok_s": tps, "raw_output": out})
         print(f"   -t {t:3d}   {args.metric} = {tps:7.1f} tok/s")
 
     if not any(r["tok_s"] for r in rows):

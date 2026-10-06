@@ -66,6 +66,7 @@ def one_request(base: str, prompt: str, max_tokens: int, temperature: float) -> 
     start = time.perf_counter()
     first_at: float | None = None
     chunks = 0
+    content = []
     timings: dict | None = None
     try:
         with httpx.stream("POST", f"{base}/v1/chat/completions", json=payload, timeout=300.0) as r:
@@ -84,6 +85,7 @@ def one_request(base: str, prompt: str, max_tokens: int, temperature: float) -> 
                     timings = obj["timings"]
                 delta = (obj.get("choices") or [{}])[0].get("delta", {}) or {}
                 if delta.get("content"):
+                    content.append(delta["content"])
                     if first_at is None:
                         first_at = time.perf_counter()
                     chunks += 1
@@ -104,6 +106,9 @@ def one_request(base: str, prompt: str, max_tokens: int, temperature: float) -> 
         "e2e_ms": (end - start) * 1000.0,
         "n_out": n_out,
         "prompt_n": int((timings or {}).get("prompt_n") or 0),
+        "answer": "".join(content),
+        "prompt": prompt,
+        "token_count_source": "timings" if (timings or {}).get("predicted_n") else "sse_chunks",
     }
 
 
@@ -159,6 +164,7 @@ def measure(label: str, model: str, quant: str) -> dict:
         "e2e_p99": round(pct(e2es, 99), 1),
         "decode_tok_s": round(1000.0 / max(tpot_p50, 1e-6), 1),
         "size_gb": round(pathlib.Path(model).stat().st_size / 1024**3, 2),
+        "requests": rows,
     }
 
 

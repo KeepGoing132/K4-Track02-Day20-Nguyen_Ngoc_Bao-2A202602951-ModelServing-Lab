@@ -24,6 +24,11 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 
+if sys.platform == "win32":
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
 # Pinned llama.cpp release. Gemma 4 (architecture "gemma4", April 2026) needs a
 # build newer than that; this one is well past it. Bump deliberately, not casually.
 LLAMA_CPP_BUILD = "b10488"
@@ -501,18 +506,28 @@ def bench_all_pp(output: str) -> list[tuple[int, float]]:
 def run_bench(args: list[str], timeout: int = 1800) -> str:
     bin_path = runtime_bin("llama-bench")
     proc = subprocess.run(
-        [str(bin_path)] + args, capture_output=True, text=True, check=False, timeout=timeout
+        [str(bin_path)] + args, capture_output=True, check=False, timeout=timeout
     )
-    return proc.stdout + proc.stderr
+
+    def decode(raw: bytes) -> str:
+        try:
+            return raw.decode("utf-8")
+        except UnicodeDecodeError:
+            # Windows release binaries emit the table's ± in the ANSI code page,
+            # even when Python itself is configured for UTF-8.
+            return raw.decode("cp1252" if sys.platform == "win32" else "utf-8",
+                              errors="replace")
+
+    return decode(proc.stdout) + decode(proc.stderr)
 
 
 # ─────────────────────────────────────────────────────────── reports
 
 def write_report(filename: str, markdown: str, data: object | None = None) -> Path:
     out = bench_dir() / filename
-    out.write_text(markdown)
+    out.write_text(markdown, encoding="utf-8")
     if data is not None:
-        out.with_suffix(".json").write_text(json.dumps(data, indent=2))
+        out.with_suffix(".json").write_text(json.dumps(data, indent=2), encoding="utf-8")
     return out
 
 

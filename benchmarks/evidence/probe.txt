@@ -1,0 +1,30 @@
+Started UTC: 2026-10-06T11:49:49.269778+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/00-setup/detect-hardware.py
+Environment: {"LAB_LOAD_LONG_TOKENS": "96", "LAB_LOAD_SHORT_TOKENS": "48", "LAB_MAX_TOKENS": "64", "LAB_N_CTX": "2048", "LAB_N_GPU_LAYERS": "0", "LAB_N_THREADS": "14", "LAB_PARALLEL": "4", "LAB_REASONING": "off", "LAB_TEMPERATURE": "0.7"}
+
+────────────────────────────────────────────────────────────────
+  Platform : Windows 10 (AMD64)
+  CPU      : 12th Gen Intel(R) Core(TM) i7-12700H
+             14 physical · 20 logical cores
+  RAM      : 23.6 GB
+  GPU      : nvidia_cuda, vulkan
+             - nvidia: NVIDIA GeForce RTX 3050 Ti Laptop GPU, 4096 MiB
+             - vulkan: device present
+────────────────────────────────────────────────────────────────
+
+  Model         : Gemma 4 E2B  [LAB_MODEL=gemma4-e2b]
+                  unsloth/gemma-4-E2B-it-GGUF  (~5.2 GB)
+                  primary  gemma-4-E2B-it-UD-Q4_K_XL.gguf  (2.97 GB)
+                  compare  gemma-4-E2B-it-UD-Q2_K_XL.gguf  (2.24 GB)
+                  chosen because: enough RAM for the default model
+  Other option  : LAB_MODEL=qwen35-0.8b  ->  Qwen3.5 0.8B, ~0.9 GB, needs 4.0 GB RAM
+  llama.cpp     : prebuilt release b10488  (llama-b10488-bin-win-cuda-12.4-x64.zip)
+  GPU offload   : OFF -- LAB_N_GPU_LAYERS=0; device available: CUDA0: NVIDIA GeForce RTX 3050 Ti Laptop GPU (4095 MiB, 3287 MiB free)
+  source build  : -DGGML_CUDA=ON  (bonus B1 -- not used by the base track)
+  Tracks open   : 01-measure, 02-serve, 03-integrate, bonus/sweeps
+────────────────────────────────────────────────────────────────
+
+Saved hardware.json -- every other track reads this.
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:49:54.371476+00:00

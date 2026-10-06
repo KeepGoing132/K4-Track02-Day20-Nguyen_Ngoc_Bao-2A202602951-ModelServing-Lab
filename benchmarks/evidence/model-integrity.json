@@ -1,0 +1,32 @@
+{
+  "repo_id": "unsloth/gemma-4-E2B-it-GGUF",
+  "revision": "0314792d7f1f7e229411f620751375812bb9faf2",
+  "files": {
+    "gemma-4-E2B-it-UD-Q2_K_XL.gguf": {
+      "size": 2403614816,
+      "sha256": "2bfeb49803da8db274b3fbac3c1d471903be64d382c237c6f509ccaa9cc141a2",
+      "verified_sha256": "2bfeb49803da8db274b3fbac3c1d471903be64d382c237c6f509ccaa9cc141a2",
+      "matches": true
+    },
+    "gemma-4-E2B-it-UD-Q4_K_XL.gguf": {
+      "size": 3184496736,
+      "sha256": "b52f438017efaec5debf1c0d8be690571e212a07c312f1102bbce927258cfc32",
+      "verified_sha256": "b52f438017efaec5debf1c0d8be690571e212a07c312f1102bbce927258cfc32",
+      "matches": true
+    }
+  },
+  "validated_at_utc": "2026-10-06T11:49:48.947993+00:00",
+  "runtime": {
+    "build": "b10488",
+    "asset": "llama-b10488-bin-win-cuda-12.4-x64.zip",
+    "llama_server": "runtime\\b10488\\llama-server.exe",
+    "llama_bench": "runtime\\b10488\\llama-bench.exe"
+  },
+  "packages": {
+    "httpx": "0.28.1",
+    "locust": "2.46.7",
+    "huggingface_hub": "1.33.0",
+    "numpy": "2.4.6"
+  },
+  "download_method": "curl from official Hugging Face resolve URLs; hf_hub_download stalled"
+}

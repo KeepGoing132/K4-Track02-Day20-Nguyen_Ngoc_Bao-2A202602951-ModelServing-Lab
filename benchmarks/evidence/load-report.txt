@@ -1,0 +1,50 @@
+Started UTC: 2026-10-06T11:56:17.436574+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/02-serve/load-report.py
+Environment: {"LAB_LOAD_LONG_TOKENS": "96", "LAB_LOAD_SHORT_TOKENS": "48", "LAB_MAX_TOKENS": "64", "LAB_N_CTX": "2048", "LAB_N_GPU_LAYERS": "0", "LAB_N_THREADS": "14", "LAB_PARALLEL": "4", "LAB_REASONING": "off", "LAB_TEMPERATURE": "0.7"}
+
+
+# 02 - Serve: load test + saturation reading
+
+Host `Windows-AMD64` · llama.cpp `b10488` ·
+`--parallel 4` · `ctx=2048` · `threads=14` ·
+`ngl=0`
+
+| Users | Reqs | RPS | P50 (ms) | P95 (ms) | P99 (ms) | Eff. concurrency | Failures |
+|:--|--:|--:|--:|--:|--:|--:|--:|
+| 10 | 19 | 0.32 | 24000 | 37000 | 37000 | 6.9 | 0.0% |
+| 50 | 19 | 0.32 | 29000 | 59000 | 59000 | 9.3 | 0.0% |
+
+*Effective concurrency = RPS x average latency (Little's Law) -- how many requests were
+really in flight, regardless of how many users locust simulated. It counts queued requests
+too, so the occupancy/slot ratio can legitimately exceed 1.0; it is occupancy, not
+utilisation. For true slot utilisation use the server's own gauges (`make metrics`).*
+
+## What these two runs say
+
+| Going from 10 to 50 users | |
+|:--|--:|
+| Offered load | 5x |
+| Throughput actually delivered | **1.00x** (20% of linear) |
+| P95 latency | **1.59x** |
+| Effective concurrency at 50 users | 9.3 vs `--parallel 4` slots (occupancy/slot ratio 2.33) |
+
+**Saturated.** Throughput delivered only 1.00x for 5x the offered load, and effective concurrency (9.3) is at or above all 4 decode slots. Saturation sets in somewhere at or below 50 users; the load you added beyond that point became queue time rather than throughput.
+
+Throughput moved 1.00x while P95 moved 1.59x. That gap is the goodput argument: past saturation you buy throughput by spending latency, and if your SLO is a P95 target then the requests you added are no longer being served within it. (This lab does not fix an SLO number for you -- pick one in your write-up and state how much goodput you keep at it.)
+
+> **Small sample.** Only 19 requests completed in the
+> shorter run, so these percentiles are indicative rather than solid. Note also that
+> locust averages only *completed* requests: when the run ends with requests still
+> queued, effective concurrency is an **under**-estimate. Trust the throughput-scaling
+> row over the concurrency row here, and run longer (`-t 3m`) if you want firmer numbers.
+
+## Your reading (required -- replace this line)
+
+_Where does your server saturate, and what is the evidence? Name the number that
+convinced you. Then say what you would change first to raise goodput at your SLO --
+and why that knob and not another._
+
+==> Wrote benchmarks\02-server-results.md
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:56:17.643455+00:00

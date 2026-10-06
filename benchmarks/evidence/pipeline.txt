@@ -1,0 +1,37 @@
+Started UTC: 2026-10-06T11:56:17.644473+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/03-integrate/pipeline.py
+Environment: {"LAB_LOAD_LONG_TOKENS": "96", "LAB_LOAD_SHORT_TOKENS": "48", "LAB_MAX_TOKENS": "64", "LAB_N_CTX": "2048", "LAB_N_GPU_LAYERS": "0", "LAB_N_THREADS": "14", "LAB_PARALLEL": "4", "LAB_REASONING": "off", "LAB_TEMPERATURE": "0.7"}
+
+
+────────────────────────────────────────────────────────────────
+  03 - RAG pipeline
+────────────────────────────────────────────────────────────────
+  llama-server : http://localhost:8080
+  embeddings   : none (keyword overlap fallback)
+
+=== Why is goodput more useful than raw throughput?
+  contexts : [('goodput', 1.0), ('paged', 0.0), ('radix', 0.0)]
+  timings  : {'embed': 0.0, 'retrieve': 0.1, 'llm': 5452.4, 'total': 5452.5}
+  server   : prefill 149 tok / 1872 ms, decode 30 tok / 1312 ms
+  answer   : Goodput@SLO counts only the requests per second that met the TTFT and TPOT targets. Throughput at saturation ignores SLOs.
+
+=== What problem does PagedAttention actually solve?
+  contexts : [('paged', 1.0), ('radix', 0.0), ('disagg', 0.0)]
+  timings  : {'embed': 0.0, 'retrieve': 0.1, 'llm': 4580.9, 'total': 4581.0}
+  server   : prefill 114 tok / 1158 ms, decode 23 tok / 994 ms
+  answer   : PagedAttention stores the KV cache in non-contiguous pages, removing the internal fragmentation that wasted most GPU memory.
+
+=== When does splitting prefill and decode help?
+  contexts : [('disagg', 2.0), ('radix', 1.0), ('batching', 1.0)]
+  timings  : {'embed': 0.0, 'retrieve': 0.1, 'llm': 4576.0, 'total': 4576.1}
+  server   : prefill 113 tok / 1165 ms, decode 24 tok / 985 ms
+  answer   : Splitting prefill and decode helps because prefill is compute-bound and decode is memory-bandwidth-bound.
+
+  Mean over 3 queries (ms): {'embed': 0.0, 'retrieve': 0.1, 'llm': 4869.8, 'total': 4869.9}
+  Dominant stage: llm (100% of total)
+
+==> Wrote benchmarks\03-integration-results.md
+  Put these numbers in REFLECTION.md section 4 as well.
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:56:32.540045+00:00

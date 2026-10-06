@@ -118,7 +118,7 @@ def main() -> int:
 
     def rel(p: pathlib.Path) -> str:
         try:
-            return str(p.resolve().relative_to(labkit.repo_root()))
+            return p.resolve().relative_to(labkit.repo_root()).as_posix()
         except ValueError:
             return str(p.resolve())
 

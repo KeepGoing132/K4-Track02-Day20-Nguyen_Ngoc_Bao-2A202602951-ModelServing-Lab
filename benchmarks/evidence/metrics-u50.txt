@@ -1,0 +1,32 @@
+Started UTC: 2026-10-06T11:55:11.103207+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/02-serve/record-metrics.py --duration 60 --label u50
+Environment: {"LAB_LOAD_LONG_TOKENS": "96", "LAB_LOAD_SHORT_TOKENS": "48", "LAB_MAX_TOKENS": "64", "LAB_N_CTX": "2048", "LAB_N_GPU_LAYERS": "0", "LAB_N_THREADS": "14", "LAB_PARALLEL": "4", "LAB_REASONING": "off", "LAB_TEMPERATURE": "0.7"}
+
+
+────────────────────────────────────────────────────────────────
+  Recording http://localhost:8080/metrics for 60s
+────────────────────────────────────────────────────────────────
+  Drive load in another terminal (make load-50) or these will all read idle.
+
+   busy_slots= 3.80  processing=  0  deferred=  0  tok_pred=    1178
+   busy_slots= 3.82  processing=  4  deferred= 46  tok_pred=    1178
+   busy_slots= 3.83  processing=  4  deferred= 46  tok_pred=    1252
+   busy_slots= 3.84  processing=  4  deferred= 46  tok_pred=    1348
+   busy_slots= 3.85  processing=  4  deferred= 46  tok_pred=    1434
+   busy_slots= 3.85  processing=  4  deferred= 46  tok_pred=    1530
+   busy_slots= 3.86  processing=  4  deferred= 45  tok_pred=    1626
+   busy_slots= 3.87  processing=  4  deferred= 46  tok_pred=    1716
+   busy_slots= 3.87  processing=  4  deferred= 45  tok_pred=    1764
+   busy_slots= 3.88  processing=  4  deferred= 45  tok_pred=    1900
+   busy_slots= 3.88  processing=  4  deferred= 45  tok_pred=    1932
+   busy_slots= 3.89  processing=  4  deferred= 46  tok_pred=    1980
+   busy_slots= 3.89  processing=  4  deferred= 46  tok_pred=    1980
+   busy_slots= 3.90  processing=  0  deferred=  0  tok_pred=    2279
+
+==> Wrote benchmarks\02-server-metrics-u50.csv
+==> Wrote benchmarks\02-server-batching-u50.md
+
+  Highest sampled n_busy_slots_per_decode = 3.90 of 4 slots
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:56:15.015020+00:00

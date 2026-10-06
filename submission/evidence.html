@@ -1,0 +1,150 @@
+<!doctype html><html lang="vi"><meta charset="utf-8">
+<title>Day 20 — actual command output</title>
+<style>body{margin:24px;background:#f4f5f7;color:#17212b;font-family:Arial,sans-serif}nav a{margin-right:18px}section{background:white;border:1px solid #ccd2d9;padding:18px;margin:24px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 Consolas,monospace}h2{font-size:20px}small{color:#53606c}@media print{section{break-before:page}nav{display:none}}</style>
+<h1>Day 20: đầu ra thực tế</h1>
+<p>Trang xem log gốc, không phải ảnh terminal. Chụp từng phần bằng công cụ chụp màn hình và lưu vào <code>submission/screenshots/</code>.</p>
+<nav><a href="#01-hardware-probe">1</a><a href="#02-bench">2</a><a href="#03-serve-and-smoke">3</a><a href="#04-locust-10">4</a><a href="#05-locust-50">5</a></nav>
+<section id="01-hardware-probe"><h2>Hardware probe</h2><small>Source: <a href="../benchmarks/evidence/probe.txt">probe.txt</a>. Screenshot filename: 01-hardware-probe.png</small><pre>Started UTC: 2026-10-06T11:49:49.269778+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/00-setup/detect-hardware.py
+Environment: {&quot;LAB_LOAD_LONG_TOKENS&quot;: &quot;96&quot;, &quot;LAB_LOAD_SHORT_TOKENS&quot;: &quot;48&quot;, &quot;LAB_MAX_TOKENS&quot;: &quot;64&quot;, &quot;LAB_N_CTX&quot;: &quot;2048&quot;, &quot;LAB_N_GPU_LAYERS&quot;: &quot;0&quot;, &quot;LAB_N_THREADS&quot;: &quot;14&quot;, &quot;LAB_PARALLEL&quot;: &quot;4&quot;, &quot;LAB_REASONING&quot;: &quot;off&quot;, &quot;LAB_TEMPERATURE&quot;: &quot;0.7&quot;}
+
+────────────────────────────────────────────────────────────────
+  Platform : Windows 10 (AMD64)
+  CPU      : 12th Gen Intel(R) Core(TM) i7-12700H
+             14 physical · 20 logical cores
+  RAM      : 23.6 GB
+  GPU      : nvidia_cuda, vulkan
+             - nvidia: NVIDIA GeForce RTX 3050 Ti Laptop GPU, 4096 MiB
+             - vulkan: device present
+────────────────────────────────────────────────────────────────
+
+  Model         : Gemma 4 E2B  [LAB_MODEL=gemma4-e2b]
+                  unsloth/gemma-4-E2B-it-GGUF  (~5.2 GB)
+                  primary  gemma-4-E2B-it-UD-Q4_K_XL.gguf  (2.97 GB)
+                  compare  gemma-4-E2B-it-UD-Q2_K_XL.gguf  (2.24 GB)
+                  chosen because: enough RAM for the default model
+  Other option  : LAB_MODEL=qwen35-0.8b  -&gt;  Qwen3.5 0.8B, ~0.9 GB, needs 4.0 GB RAM
+  llama.cpp     : prebuilt release b10488  (llama-b10488-bin-win-cuda-12.4-x64.zip)
+  GPU offload   : OFF -- LAB_N_GPU_LAYERS=0; device available: CUDA0: NVIDIA GeForce RTX 3050 Ti Laptop GPU (4095 MiB, 3287 MiB free)
+  source build  : -DGGML_CUDA=ON  (bonus B1 -- not used by the base track)
+  Tracks open   : 01-measure, 02-serve, 03-integrate, bonus/sweeps
+────────────────────────────────────────────────────────────────
+
+Saved hardware.json -- every other track reads this.
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:49:54.371476+00:00
+</pre></section>
+<section id="02-bench"><h2>Benchmark: both quantizations</h2><small>Source: <a href="../benchmarks/evidence/bench.txt">bench.txt</a>. Screenshot filename: 02-bench.png</small><pre>Started UTC: 2026-10-06T11:49:54.372476+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/01-measure/benchmark.py
+Environment: {&quot;LAB_LOAD_LONG_TOKENS&quot;: &quot;96&quot;, &quot;LAB_LOAD_SHORT_TOKENS&quot;: &quot;48&quot;, &quot;LAB_MAX_TOKENS&quot;: &quot;64&quot;, &quot;LAB_N_CTX&quot;: &quot;2048&quot;, &quot;LAB_N_GPU_LAYERS&quot;: &quot;0&quot;, &quot;LAB_N_THREADS&quot;: &quot;14&quot;, &quot;LAB_PARALLEL&quot;: &quot;4&quot;, &quot;LAB_REASONING&quot;: &quot;off&quot;, &quot;LAB_TEMPERATURE&quot;: &quot;0.7&quot;}
+
+# 01 - Measure: latency baseline
+
+Model `Gemma 4 E2B` · host `Windows-AMD64` · llama.cpp `b10488`
+Settings: `threads=14` `ngl=0` `ctx=2048`
+`max_tokens=64` · warm-up discarded
+Completed requests: `UD-Q4_K_XL` 10/10 · `UD-Q2_K_XL` 10/10
+
+| Quantization | Size (GB) | Load (ms) | TTFT P50/P95 (ms) | TPOT P50/P95 (ms) | E2E P50/P95/P99 (ms) | Decode (tok/s) |
+|:--|--:|--:|--:|--:|--:|--:|
+| UD-Q4_K_XL | 2.97 | 5209 | 688 / 933 | 45.0 / 46.7 | 3550 / 3766 / 3766 | 22.2 |
+| UD-Q2_K_XL | 2.24 | 4328 | 771 / 931 | 41.4 / 44.7 | 3374 / 3692 / 3692 | 24.2 |
+
+- **TTFT** = prefill. Short prompts keep it small; long-context RAG is where it explodes.
+- **TPOT** = per-output-token decode cost, bounded by memory bandwidth. `decode tok/s = 1000 / TPOT_p50`.
+- `UD-Q2_K_XL` decodes **1.09x faster** than `UD-Q4_K_XL` here, for 0.73 GB less on disk.
+
+## Your observation (required -- replace this line)
+
+_Is the smaller quantization worth it on your machine? Compare the numbers above,
+then judge the answer quality yourself: run `make serve` on each and ask the same
+question twice. Size and speed are measurable; usefulness is your call._
+
+==&gt; Wrote benchmarks\01-quickstart-results.md
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:51:11.944941+00:00
+</pre></section>
+<section id="03-serve-and-smoke"><h2>Server + smoke + non-zero metrics</h2><small>Source: <a href="../benchmarks/evidence/server.txt">server.txt</a> · <a href="../benchmarks/evidence/smoke.txt">smoke.txt</a>. Screenshot filename: 03-serve-and-smoke.png</small><pre>Started UTC: 2026-10-06T11:53:55.389814+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\runtime\b10488\llama-server.exe -m E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\models\gemma-4-E2B-it-UD-Q4_K_XL.gguf --host 127.0.0.1 --port 8080 -t 14 -ngl 0 --ctx-size 2048 --parallel 4 --cont-batching --metrics --reasoning off
+Environment: {&quot;LAB_LOAD_LONG_TOKENS&quot;: &quot;96&quot;, &quot;LAB_LOAD_SHORT_TOKENS&quot;: &quot;48&quot;, &quot;LAB_MAX_TOKENS&quot;: &quot;64&quot;, &quot;LAB_N_CTX&quot;: &quot;2048&quot;, &quot;LAB_N_GPU_LAYERS&quot;: &quot;0&quot;, &quot;LAB_N_THREADS&quot;: &quot;14&quot;, &quot;LAB_PARALLEL&quot;: &quot;4&quot;, &quot;LAB_REASONING&quot;: &quot;off&quot;, &quot;LAB_TEMPERATURE&quot;: &quot;0.7&quot;}
+0.02.828.274 I srv  llama_server: model loaded
+0.02.828.284 I srv  llama_server: listening on http://127.0.0.1:8080
+
+Started UTC: 2026-10-06T11:53:58.916629+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u labs/02-serve/smoke-test.py
+Environment: {&quot;LAB_LOAD_LONG_TOKENS&quot;: &quot;96&quot;, &quot;LAB_LOAD_SHORT_TOKENS&quot;: &quot;48&quot;, &quot;LAB_MAX_TOKENS&quot;: &quot;64&quot;, &quot;LAB_N_CTX&quot;: &quot;2048&quot;, &quot;LAB_N_GPU_LAYERS&quot;: &quot;0&quot;, &quot;LAB_N_THREADS&quot;: &quot;14&quot;, &quot;LAB_PARALLEL&quot;: &quot;4&quot;, &quot;LAB_REASONING&quot;: &quot;off&quot;, &quot;LAB_TEMPERATURE&quot;: &quot;0.7&quot;}
+
+
+────────────────────────────────────────────────────────────────
+  Smoke test against http://localhost:8080
+────────────────────────────────────────────────────────────────
+  /metrics before : tokens_predicted_total = 0
+
+==&gt; POST http://localhost:8080/v1/chat/completions
+
+Goodput@SLO measures the amount of work completed within a specified Service Level Objective.
+
+  server timings: prompt 35 tok in 726 ms  -&gt;  48.2 tok/s prefill
+                  decode 19 tok in 826 ms  -&gt;  21.8 tok/s
+
+==&gt; GET http://localhost:8080/metrics   (rubric item 7 -- screenshot this)
+   llamacpp:tokens_predicted_total                   19.00   (+19)
+   llamacpp:prompt_tokens_total                      35.00   (+35)
+   llamacpp:n_decode_total                           21.00   (+21)
+   llamacpp:requests_processing                       0.00
+   llamacpp:n_busy_slots_per_decode                   1.00   (+1)
+
+OK -- served a completion and tokens_predicted_total is 19 (non-zero).
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:54:07.698491+00:00
+</pre></section>
+<section id="04-locust-10"><h2>Locust: 10 users / 60 seconds</h2><small>Source: <a href="../benchmarks/evidence/locust-10.txt">locust-10.txt</a>. Screenshot filename: 04-locust-10.png</small><pre>Started UTC: 2026-10-06T11:54:07.700496+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u -m locust -f labs/02-serve/load-test.py --headless -u 10 -r 5 -t 1m --host http://localhost:8080 --csv benchmarks/locust-10 --csv-full-history
+Environment: {&quot;LAB_LOAD_LONG_TOKENS&quot;: &quot;96&quot;, &quot;LAB_LOAD_SHORT_TOKENS&quot;: &quot;48&quot;, &quot;LAB_MAX_TOKENS&quot;: &quot;64&quot;, &quot;LAB_N_CTX&quot;: &quot;2048&quot;, &quot;LAB_N_GPU_LAYERS&quot;: &quot;0&quot;, &quot;LAB_N_THREADS&quot;: &quot;14&quot;, &quot;LAB_PARALLEL&quot;: &quot;4&quot;, &quot;LAB_REASONING&quot;: &quot;off&quot;, &quot;LAB_TEMPERATURE&quot;: &quot;0.7&quot;}
+
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     long-rag                                                                           3     0(0.00%) |  26638   17558   37338  25000 |    0.05        0.00
+POST     short                                                                             16     0(0.00%) |  20417    7954   32689  24000 |    0.27        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                        19     0(0.00%) |  21399    7954   37338  24000 |    0.32        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     long-rag                                                                            25000  25000  37000  37000  37000  37000  37000  37000  37000  37000  37000      3
+POST     short                                                                               24000  25000  27000  27000  30000  33000  33000  33000  33000  33000  33000     16
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                          24000  25000  27000  29000  33000  37000  37000  37000  37000  37000  37000     19
+
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:55:08.509863+00:00
+</pre></section>
+<section id="05-locust-50"><h2>Locust: 50 users / 60 seconds</h2><small>Source: <a href="../benchmarks/evidence/locust-50.txt">locust-50.txt</a>. Screenshot filename: 05-locust-50.png</small><pre>Started UTC: 2026-10-06T11:55:11.088066+00:00
+Command: E:\D\learn_AI\LAB\Track2\K4-Track02-Day20-ModelServing-Lab\.venv\Scripts\python.exe -u -m locust -f labs/02-serve/load-test.py --headless -u 50 -r 25 -t 1m --host http://localhost:8080 --csv benchmarks/locust-50 --csv-full-history
+Environment: {&quot;LAB_LOAD_LONG_TOKENS&quot;: &quot;96&quot;, &quot;LAB_LOAD_SHORT_TOKENS&quot;: &quot;48&quot;, &quot;LAB_MAX_TOKENS&quot;: &quot;64&quot;, &quot;LAB_N_CTX&quot;: &quot;2048&quot;, &quot;LAB_N_GPU_LAYERS&quot;: &quot;0&quot;, &quot;LAB_N_THREADS&quot;: &quot;14&quot;, &quot;LAB_PARALLEL&quot;: &quot;4&quot;, &quot;LAB_REASONING&quot;: &quot;off&quot;, &quot;LAB_TEMPERATURE&quot;: &quot;0.7&quot;}
+
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+POST     long-rag                                                                           1     0(0.00%) |  59040   59040   59040  59040 |    0.02        0.00
+POST     short                                                                             18     0(0.00%) |  27288    8042   48735  29000 |    0.30        0.00
+--------|----------------------------------------------------------------------------|-------|-------------|-------|-------|-------|-------|--------|-----------
+         Aggregated                                                                        19     0(0.00%) |  28960    8042   59040  29000 |    0.32        0.00
+
+Response time percentiles (approximated)
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+POST     long-rag                                                                            59000  59000  59000  59000  59000  59000  59000  59000  59000  59000  59000      1
+POST     short                                                                               29000  32000  39000  40000  47000  49000  49000  49000  49000  49000  49000     18
+--------|--------------------------------------------------------------------------------|--------|------|------|------|------|------|------|------|------|------|------|------
+         Aggregated                                                                          29000  38000  40000  41000  49000  59000  59000  59000  59000  59000  59000     19
+
+
+Exit code: 0
+Finished UTC: 2026-10-06T11:56:11.900051+00:00
+</pre></section>
+</html>

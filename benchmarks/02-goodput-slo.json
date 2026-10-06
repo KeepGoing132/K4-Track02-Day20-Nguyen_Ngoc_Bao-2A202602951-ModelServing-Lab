@@ -1,0 +1,17 @@
+{
+  "slo": "successful HTTP request, end-to-end <= 15000 ms",
+  "runs": [
+    {
+      "users": 10,
+      "completed": 19,
+      "within_slo": 4,
+      "goodput_rps": 0.0678954749003329
+    },
+    {
+      "users": 50,
+      "completed": 19,
+      "within_slo": 4,
+      "goodput_rps": 0.06773165111345614
+    }
+  ]
+}
